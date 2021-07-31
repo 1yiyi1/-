@@ -12,13 +12,13 @@ df =pd.read_excel(xls)
 batch_size = 3
 #print(df.loc[0].values)
 
-train_dataset = torch.tensor(df.loc[:99].values)   ###train set
+train_dataset = torch.tensor(df.loc[:99].values)   
 
-test_dataset = torch.tensor(df.loc[100:].values)   ###test set
+test_dataset = torch.tensor(df.loc[100:].values)   
 
 
-train_feature = train_dataset[:,2:].float() ## get features
-train_label = train_dataset[:,1].float()  ## target
+train_feature = train_dataset[:,2:].float() 
+train_label = train_dataset[:,1].float()  
 test_feature = test_dataset[:,2:].float()
 test_label = test_dataset[:,1].float()
 
@@ -39,31 +39,23 @@ H2=9
 H3=9
 D_out = 1 ## cell of output layer
 lerning_rate = 1e-4   
-#class MyModel(nn.Moduel):
-#	def __init__(self,D_in,H,D_out):
-#		super(MyModel,self).__init__()
-#		self.linear1 = nn.Linear(D_in,H)
-#		self.linear2 = nn.Linear(H,D_out)
-#	def forward(x,self):
-#		h_relu = nn.ReLU(self.linear1(x))
-#		y_pred = self.linear2(h_relu)
-#		return y_pred
+
 	
 		
 class MyModel(nn.Module):
 	def __init__(self,D_in,H1,H2,H3,D_out):
 		super(MyModel,self).__init__()
-		self.net = nn.Sequential(nn.Linear(D_in,H1),nn.ReLU(),nn.Linear(H1,H2),nn.ReLU(),nn.Linear(H2,H3),nn.ReLU(),nn.Linear(H3,D_out))   ## You can increase the hidden layer and change the activation function		                                                                              		                                                                           
+		self.net = nn.Sequential(nn.Linear(D_in,H1),nn.ReLU(),nn.Linear(H1,H2),nn.ReLU(),nn.Linear(H2,H3),nn.ReLU(),nn.Linear(H3,D_out))  		                                                                              		                                                                           
 	def forward(self,x):
 		y_pred = self.net(x)
 		return y_pred
 		
 model = MyModel(D_in,H1,H2,H3,D_out)
 
-optimizer = torch.optim.Adam(model.parameters(),lr=lerning_rate)  ## Adam 
+optimizer = torch.optim.Adam(model.parameters(),lr=lerning_rate) 
 loss_fn = nn.MSELoss(reduction='mean') 	
 
-epoch = 2000  ## epoch of training, you can change it
+epoch = 2000  
 txt = open('result.txt','w+')
 train_loss_list = []
 test_loss_list = []
@@ -84,7 +76,7 @@ for ii in range(epoch):
 		optimizer.step()
 		train_loss = train_loss + loss.item()
 		n = n + 1
-	#break
+	
 	test_loss,m = 0,0
 	for x_test,y_test in data_test_iter:
 		y_test = y_test.view(-1,1)
