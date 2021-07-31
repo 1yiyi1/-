@@ -3,18 +3,7 @@ import numpy as np
 import pandas as pd
 import os
 import glob 
-'''
-def Corr_coeff(y_true,y_predict):
-	y_mean = np.mean(y_true)
-	SSR = 0
-	SST = 0
-	#print(len(y_true))
-	#print(len(y_predict))
-	for i in range(len(y_true)):
-		SSR = SSR + (y_predict[i]-y_mean)**2
-		SST = SST + (y_true[i]-y_mean)**2
-	return float(SSR)/float(SST)
-'''	
+
 def draw_data(times_list,volt_list):
 	time_list_part = []
 	volt_list_part = []
